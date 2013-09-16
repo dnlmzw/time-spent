@@ -19,7 +19,7 @@ config.js
 #################
 
 npm-debug.log
-node_modules
+node_modules/
 
 # OS generated files #
 ######################
