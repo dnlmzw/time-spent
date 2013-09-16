@@ -1,10 +1,8 @@
 # time-spent
-=====
 
 Calculate time spent on events in your Google Calendar like time spent on a freelance gig once it's time to send out invoices.
 
 ## Usage
-=====
 
 Rename config-sample.js to config.js and input your credentials.
 
