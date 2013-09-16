@@ -1,0 +1,85 @@
+body {
+  padding: 50px;
+  font: 14px Helvetica, "Lucida Grande", Arial, sans-serif;
+}
+a {
+  color: #00b7ff;
+}
+table {
+  width: 100%;
+}
+table tr td {
+  padding: 5px 10px;
+}
+table tr td:first-child {
+  width: 15%;
+}
+table tr td:last-child {
+  width: 10%;
+}
+table thead td {
+  font-weight: bold;
+}
+.menu a {
+  margin-right: 10px;
+}
+.box {
+  margin: 10px 0;
+  padding: 0 0;
+  background-color: #eee;
+  border-radius: 10px;
+}
+.box.date {
+  padding: 10px;
+}
+.box.date input {
+  width: 33%;
+  font-size: 14px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.box.result {
+  padding: 10px;
+  font-size: 30px;
+  height: 35px;
+}
+.box.result div {
+  width: 50%;
+  float: left;
+  text-align: center;
+}
+.list label,
+.list li {
+  display: block;
+  padding: 10px 10px;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #fff;
+  text-shadow: 1px 1px 0px #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.list label a,
+.list li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+.list label input,
+.list li input {
+  margin-right: 10px;
+}
+.list label:first-child,
+.list li:first-child {
+  border-top: 0;
+}
+.list label:last-child,
+.list li:last-child {
+  border-bottom: 0;
+}
+.list label:hover,
+.list li:hover {
+  background-color: rgba(255,255,255,0.35);
+}

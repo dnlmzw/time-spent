@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 All calendars
+  p Please choose a calendar
+
+  ul.box.list
+    each cal in calendars
+      li 
+        a(href="/overview/#{cal.id}") #{cal.summary}
