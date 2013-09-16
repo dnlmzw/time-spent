@@ -4,6 +4,10 @@ Calculate time spent on events in your Google Calendar like time spent on a free
 
 ## Usage
 
+Run:
+
+  npm install
+
 Rename config-sample.js to config.js and input your credentials.
 
 ``` js
@@ -13,7 +17,9 @@ module.exports = {
 }
 ```
 
-Create an app and get your credentials here: https://code.google.com/apis/console - remember to turn on 'Calendar API' under 'Services'.
+Create an app and get your credentials here: https://code.google.com/apis/console.
+
+Also remember to turn on 'Services' -> 'Calendar API'.
 
 ## Notes
 
