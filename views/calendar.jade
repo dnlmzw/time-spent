@@ -6,9 +6,9 @@ block content
 
   div.box.date
     label
-      input#start(type="text", placeholder="Start date")
+      input#start(type="text", placeholder="Start date", value="10/01/2013")
     label
-      input#end(type="text", placeholder="End date")
+      input#end(type="text", placeholder="End date", value="10/11/2013")
     label
       input#rate(type="number",placeholder="Hourly rate")
 
@@ -23,13 +23,19 @@ block content
       span 0
       | ,- i alt
 
-  table#documentation.box
+  table#docs.box
     thead
       tr
         td Date
         td Summary
         td Hours
     tbody
+    tfoot
+      tr
+        td(colspan=3)
+          a(href="javascript:writeRawDocs()") Show raw documentation
+
+  textarea#rawdocs
 
   script(type="text/javascript")
     var events = !{JSON.stringify(calendar)};
