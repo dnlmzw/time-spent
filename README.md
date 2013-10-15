@@ -22,3 +22,15 @@ Also remember to turn on 'Services' -> 'Calendar API'.
 This project is one of my first Node.js projects and has not been tested very thoroughly. This was only meant to be a test-project to get dirty with Node and therefore might contain critical bugs.
 
 Hope you find it useful and if so, please let me know in which cases you did use it!
+
+## To-do
+
+- Sort output table by date / time
+- Re-factor main.css
+- Input fields picks current date -15d and current date
+- Redirect if credentials died
+- Don't reload if date picked is the same as before
+
+## Known issues
+
+- Google doesn't always get the latest date if events are set to repeat inside Google Calendar, but then later removed. Might have to do with the cancelled events that I need to check if they're in that array.

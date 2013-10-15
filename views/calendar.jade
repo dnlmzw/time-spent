@@ -14,7 +14,9 @@ block content
 
   div#filter.list.box
 
+
   div.box.result
+
     div#hours
       span 0
       |  timer i alt
@@ -23,19 +25,24 @@ block content
       span 0
       | ,- i alt
 
-  table#docs.box
-    thead
-      tr
-        td Date
-        td Summary
-        td Hours
-    tbody
-    tfoot
-      tr
-        td(colspan=3)
-          a(href="javascript:writeRawDocs()") Show raw documentation
+  div.docs
 
-  textarea#rawdocs
+    table#formatted.box
+
+      thead
+        tr
+          td Date
+          td Summary
+          td Hours
+
+      tbody
+
+      tfoot
+        tr
+          td(colspan=3)
+            a(href="javascript:writeRawDocs()") Show raw documentation
+
+    textarea#raw
 
   script(type="text/javascript")
     var events = !{JSON.stringify(calendar)};

@@ -15,9 +15,11 @@ $(document).ready( function (){
         jobs[this.summary] = [this];
     });
 
+    // Loop through list of jobs
     $.each(jobs, function(key, value){
       $('#filter').append(
-        $('<label><input type="checkbox" name="'+key+'" />'+key+'</label>')
+        // Make sure undefined jobs does not reach the list (cancelled events)
+        key != 'undefined' ? $('<label><input type="checkbox" name="'+key+'" />'+key+'</label>') : null
       );
     });
 
@@ -25,7 +27,7 @@ $(document).ready( function (){
   }
 
   // hide the raw documentation
-  $('#rawdocs').hide();
+  $('#raw').hide().on('blur', function(){$(this).hide()});
 })
 
 function addCommas(nStr)
@@ -66,6 +68,8 @@ function calculate (){
 
         pickerEndDate.setHours(23);
         pickerEndDate.setMinutes(59);
+
+        console.log(this, '\n');
 
         if(start >= $('#start').datepicker("getDate") && end < pickerEndDate){
           addHours(start, end, this.summary, this.description);
@@ -121,29 +125,44 @@ function addHours (start, end, title, description){
 }
 
 function writeDocs (){
-  $('#docs tbody').empty();
+  $('#formatted tbody').empty();
 
   $.each(filteredTasks, function(){
-    $('#docs tbody').append(getTaskRow(this));
+    // IMPLEMENT GET FORMATTED DATA
+    $('#formatted tbody').append(getTaskRow(this));
     $(this.tasks).each(function (){
-      $('#docs tbody').append(getTaskRow(this, true));
+      $('#formatted tbody').append(getTaskRow(this, true));
     });
   });
 }
 
 function writeRawDocs (){
 
-  $('#rawdocs').css({width: $('#docs').width(), height: $('#docs').height()}).show().text('');
-  console.log(filteredTasks)
-
+  var rawtext = '';
 
   $.each(filteredTasks, function(){
-    console.log(this);
-    $('#rawdocs').append(this.summary + "\t\t\t" + "\n");
+
+    // The data served in different formatted ways 
+    var d1 = getFormattedData(this);
+
+    // Add the date to the raw text
+    rawtext += d1.date + " - ( ";
+
+    // Loop through sub-tasks
     $(this.tasks).each(function (){
-      $('#rawdocs tbody').append(this.summary);
+      var d2 = getFormattedData(this);
+
+      // Add the hours to the raw text
+      rawtext += d2.time + (d2.summary != '' ? ", " + (d2.summary) : '') + " / ";
     });
+
+    rawtext = rawtext.replace(/ \/ +$/,'');
+    rawtext += " ) - " + d1.hours + " timer" + "\n";
+
   });
+  
+  // Define size of textarea, set the text and show it
+  $('#raw').css({width: $('#formatted').width(), height: $('#formatted').height()}).text(rawtext).show().focus().select();
 }
 
 function getTaskObject (start, end, summary, hours, isTasksContainer){
@@ -155,9 +174,23 @@ function getTaskObject (start, end, summary, hours, isTasksContainer){
   return task;
 }
 
+// This function needs to go, as soon as getFormattedData get's implemented
 function getTaskRow (task, secondary){
   var timeframe = secondary ? getLeadingZeros(task.start.getHours()) +':'+ getLeadingZeros(task.start.getMinutes()) +' - '+ getLeadingZeros(task.end.getHours()) +':'+ getLeadingZeros(task.end.getMinutes()) : getLeadingZeros(task.start.getDate()) +'/'+ getLeadingZeros(task.start.getMonth()+1) +'/'+ task.start.getFullYear();
   return $('<tr'+(secondary ? ' style="color: #666; font-size: 11px;"': '')+'><td>'+ timeframe +'</td><td>'+ task.summary +'</td><td>'+ Math.round(task.hours*10)/10 +'</td></tr>')
+}
+
+// t = the task
+function getFormattedData (t) {
+  // Data object to return
+  var d = {};
+  // Set data values
+  d.date = getLeadingZeros(t.start.getDate()) +'/'+ getLeadingZeros(t.start.getMonth()+1) +'/'+ t.start.getFullYear();
+  d.time = getLeadingZeros(t.start.getHours()) +':'+ getLeadingZeros(t.start.getMinutes()) +' - '+ getLeadingZeros(t.end.getHours()) +':'+ getLeadingZeros(t.end.getMinutes());
+  d.hours = t.hours;
+  d.summary = t.summary;
+  // Return data object
+  return d;
 }
 
 function getLeadingZeros (number){
