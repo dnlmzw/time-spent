@@ -4,7 +4,7 @@ Calculate time spent on events in your Google Calendar like time spent on a free
 
 ## Usage
 
-Rename config-sample.js to config.js and input your credentials.
+Rename config/index-sample.js to config/index.js and input your credentials.
 
 ``` js
 module.exports = {
