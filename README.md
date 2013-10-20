@@ -8,6 +8,8 @@ Rename config/index-sample.js to config/index.js and input your credentials.
 
 ``` js
 module.exports = {
+  development_url : 'YOUR_LOCAL_URL',
+  production_url  : 'YOUR_PRODUCTION_URL',
    consumer_key    : 'YOUR_GOOGLE_CONSUMER_KEY',
    consumer_secret : 'YOUR_GOOGLE_CONSUMER_SECERET'
 }
@@ -28,9 +30,9 @@ Hope you find it useful and if so, please let me know in which cases you did use
 - Sort output table by date / time
 - Re-factor main.css
 - Input fields picks current date -15d and current date
-- Redirect if credentials died
+- Redirect if credentials expires
 - Don't reload if date picked is the same as before
 
 ## Known issues
 
-- Google doesn't always get the latest date if events are set to repeat inside Google Calendar, but then later removed. Might have to do with the cancelled events that I need to check if they're in that array.
+- Google doesn't always get the latest date if events are set to repeat inside Google Calendar, but then later removed. Might have to do with the "undefined" calendar where there are events that I need to check if appear.
