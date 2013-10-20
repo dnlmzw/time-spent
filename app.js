@@ -1,15 +1,14 @@
-var util = require('util');
-var express  = require('express');
+var util = require('util'),
+    express  = require('express'),
 
-var routes = require('./routes');
-var user = require('./routes/user');
-var http = require('http');
-var path = require('path');
+    routes = require('./routes'),
+    user = require('./routes/user'),
+    http = require('http'),
+    path = require('path'),
 
-var config = require('./config');
-var gcal = require('google-calendar');
-
-var _ = require('underscore');
+    config = require('./config'),
+    gcal = require('google-calendar'),
+    _ = require('underscore');
 
 /*
   ===========================================================================
@@ -17,9 +16,10 @@ var _ = require('underscore');
   ===========================================================================
 */
 
-var app = express();
-var passport = require('passport')
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var app = express(),
+    root_url = 'development',
+    passport = require('passport'),
+    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 app.configure(function() {
 
@@ -29,6 +29,7 @@ app.configure(function() {
   app.use(passport.initialize());
 
   app.set('port', process.env.PORT || 3000);
+  app.set('environment', process.env.NODE_ENV);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.set('view options', {layout: false});
@@ -40,14 +41,26 @@ app.configure(function() {
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(path.join(__dirname, 'public')));
 
+  // Define root url
+  switch (app.get('environment')) {
+    case 'development' :
+      root_url = config.development_url;
+      break;
+    case 'production' :
+      root_url = config.production_url;
+      break;
+  }
+
 });
 
-app.listen(app.get('port'));
+app.listen(app.get('port'), function (){
+  console.log('Server is running at ' + root_url + ":" + app.get('port'));
+});
 
 passport.use(new GoogleStrategy({
     clientID: config.consumer_key,
     clientSecret: config.consumer_secret,
-    callbackURL: "http://localhost:" + app.get("port") + "/auth/callback",
+    callbackURL: root_url +":"+ app.get("port") +"/auth/callback",
     scope: ['openid', 'https://www.googleapis.com/auth/calendar'] 
   },
   function(accessToken, refreshToken, profile, done) {
