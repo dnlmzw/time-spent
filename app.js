@@ -17,7 +17,7 @@ var util = require('util'),
 */
 
 var app = express(),
-    root_url = 'development',
+    root_url,
     passport = require('passport'),
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
@@ -60,7 +60,7 @@ app.listen(app.get('port'), function (){
 passport.use(new GoogleStrategy({
     clientID: config.consumer_key,
     clientSecret: config.consumer_secret,
-    callbackURL: root_url +":"+ app.get("port") +"/auth/callback",
+    callbackURL: root_url + "/auth/callback",
     scope: ['openid', 'https://www.googleapis.com/auth/calendar'] 
   },
   function(accessToken, refreshToken, profile, done) {
