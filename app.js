@@ -44,7 +44,7 @@ app.configure(function() {
   // Define root url
   switch (app.get('environment')) {
     case 'development' :
-      root_url = config.development_url;
+      root_url = config.development_url + ":" + app.get('port');
       break;
     case 'production' :
       root_url = config.production_url;
@@ -54,7 +54,7 @@ app.configure(function() {
 });
 
 app.listen(app.get('port'), function (){
-  console.log('Server is running at ' + root_url + ":" + app.get('port'));
+  console.log('Server is running at ' + root_url);
 });
 
 passport.use(new GoogleStrategy({
