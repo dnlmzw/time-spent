@@ -40,14 +40,16 @@ app.configure(function() {
   app.use(app.router);
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(path.join(__dirname, 'public')));
+  
+  console.log(app.get('environment'));
 
   // Define root url
   switch (app.get('environment')) {
-    case 'development' :
-      root_url = config.development_url + ":" + app.get('port');
-      break;
     case 'production' :
       root_url = config.production_url;
+      break;
+    default :
+      root_url = config.development_url + ":" + app.get('port');
       break;
   }
 
